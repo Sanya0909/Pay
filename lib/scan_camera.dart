@@ -9,7 +9,7 @@ class Home extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          child: Text('AAA'),
+          child: Text('lglglgggA'),
         ),
       ],
     );
