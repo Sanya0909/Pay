@@ -8,14 +8,7 @@ import 'package:phone_verific/transfer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: FirebaseOptions(
-      apiKey: "XXX",
-      appId: "XXX",
-      messagingSenderId: "XXX",
-      projectId: "XXX",
-    ),
-  );
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -31,7 +24,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: Profile(),
+      home: Transfer(),
     );
   }
 }

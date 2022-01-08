@@ -7,7 +7,6 @@ import 'package:phone_verific/gender_button.dart';
 import 'package:phone_verific/screens/home_sreen.dart';
 import 'dart:async';
 import 'constants.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 enum GenderType { male, female }
 
@@ -21,22 +20,6 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  void _onQRViewCreated(QRViewController controller) {
-    controller = controller;
-
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
-  }
-
   GenderType? gender;
 
   DateTime selectedDate = DateTime.now();
@@ -51,20 +34,6 @@ class _ProfileState extends State<Profile> {
       setState(() {
         selectedDate = picked;
       });
-  }
-
-  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  Barcode? result;
-  QRViewController? controller;
-
-  @override
-  void reassemble() {
-    super.reassemble();
-    if (Platform.isAndroid) {
-      controller!.pauseCamera();
-    } else if (Platform.isIOS) {
-      controller!.resumeCamera();
-    }
   }
 
   @override
@@ -210,22 +179,6 @@ class _ProfileState extends State<Profile> {
                             fontStyle: FontStyle.normal),
                       ))),
             ),
-            Expanded(
-              flex: 5,
-              child: QRView(
-                key: qrKey,
-                onQRViewCreated: _onQRViewCreated,
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Center(
-                child: (result != null)
-                    ? Text(
-                        'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-                    : Text('Scan a code'),
-              ),
-            )
           ],
         ));
   }
